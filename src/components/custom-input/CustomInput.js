@@ -4,7 +4,7 @@ export const CustomInput = ({ label, passRef, ...rest }) => {
   return (
     <Form.Group classname="mb-3">
       <Form.Label>{label}</Form.Label>
-      <Form.Control {...rest} />
+      <Form.Control {...rest} ref={passRef} />
     </Form.Group>
   );
 };

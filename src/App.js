@@ -14,11 +14,11 @@ function App() {
       <Routes>
         {/* public */}
         <Route path="/" element={<Home />} />
-        <Route path="login" element={<LogIn />} />
-        <Route path="signup" element={<SignUp />} />
+        <Route path="/login" element={<LogIn />} />
+        <Route path="/signup" element={<SignUp />} />
 
         {/*private  */}
-        <Route path="admin-signup" element={<AdminSignUp />} />
+        <Route path="/admin-signup" element={<AdminSignUp />} />
       </Routes>
       <ToastContainer />
     </div>

@@ -3,8 +3,21 @@ import axios from "axios";
 const rootEp = process.env.REACT_APP_ROOTAPI;
 const userEp = rootEp + "/users";
 //nnow im sending form 3000 to 8000
+const getAccessJWT = () => {
+  const token = sessionStorage.getItem("accessJWT");
+  return token;
+};
 
 const axiosProcessor = async (obj) => {
+  if (obj.isPrivate) {
+    //make property of obj
+    obj.headers = {
+      authorization: getAccessJWT(),
+    };
+  }
+  const token = obj.isPrivate ? getAccessJWT() : null;
+  console.log(token);
+
   try {
     const response = await axios(obj);
 
@@ -46,11 +59,20 @@ export const postAdminUser = async (data) => {
 //   }
 // };
 
-//login admin
+//===================login admin
 export const loginUser = async (data) => {
   return axiosProcessor({
-    mothod: "post",
+    method: "post",
     url: userEp + "/login",
     data,
+  });
+};
+
+//==========================get user
+export const getUser = async () => {
+  return axiosProcessor({
+    method: "post",
+    url: userEp,
+    isPrivate: true,
   });
 };

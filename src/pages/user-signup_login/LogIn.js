@@ -6,15 +6,19 @@ import { useRef } from "react";
 import { toast } from "react-toastify";
 import { loginUser } from "../../helper/axiosHelper.js";
 import { MainLayout } from "../../components/layout/MainLayout.js";
+import { getUserAction } from "../../pages/user-signup_login/userAction.js";
 
+import { useDispatch } from "react-redux";
 const LogIn = () => {
   const emailRef = useRef("");
   const passwordRef = useRef("");
 
+  const dispatch = useDispatch();
+
   //binding useRef with inputs so i get value
   const inputs = [
     {
-      label: "email",
+      label: "Email",
       name: "email",
       placeholder: "smith@email.com",
       type: "text",
@@ -38,18 +42,34 @@ const LogIn = () => {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
+    console.log(email, password);
+
     if (!email || !password) {
       return toast.error("All the input fields must be filled");
     }
 
-    const { status, message } = await loginUser({ email, password });
+    //axios-userRouter sends jwts
+    const { status, message, jwts } = await loginUser({ email, password });
+
+    if (status === "success") {
+      const { accessJWT, refreshJWT } = jwts;
+
+      sessionStorage.setItem("accessJWT", accessJWT);
+      localStorage.setItem("refreshJWT", refreshJWT);
+
+      //fetsh user info- store in redux store , redirtect to dashboard
+      //
+
+      dispatch(getUserAction());
+      return;
+    }
 
     toast[status](message);
   };
   return (
     <div>
       <MainLayout>
-        <div className="bg-dark p-3 text-light">
+        <div className="bg-light p-3 text-light">
           <Form
             onSubmit={handleOnSubmit}
             className="form-center border shadow-lg p-4 rounded mt-5"

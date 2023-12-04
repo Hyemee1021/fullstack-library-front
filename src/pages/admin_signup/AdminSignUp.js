@@ -96,7 +96,7 @@ const AdminSignUp = () => {
     },
   ];
   return (
-    <div className="bg-dark p-3 text-light">
+    <div className="bg-light p-3 text-light">
       <Form
         onSubmit={handleOnSubmit}
         className="form-center border shadow-lg p-4 rounded mt-5"
