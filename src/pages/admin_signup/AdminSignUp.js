@@ -4,7 +4,7 @@ import { CustomInput } from "../../components/custom-input/CustomInput";
 import { useState } from "react";
 import { postAdminUser } from "../../helper/axiosHelper.js";
 import { toast } from "react-toastify";
-
+import { useSelector } from "react-redux/";
 const initialState = {
   fName: "",
   lName: "",
@@ -15,6 +15,7 @@ const initialState = {
 };
 
 const AdminSignUp = () => {
+  const { user } = useSelector((state) => state.adminInfo);
   const [form, setForm] = useState(initialState);
 
   const handleOnChange = (e) => {
@@ -95,6 +96,10 @@ const AdminSignUp = () => {
       required: true,
     },
   ];
+
+  if (user?.role !== "admin") {
+    return `<h1>Unauthorised</h1>`;
+  }
   return (
     <div className="bg-light p-3 text-light">
       <Form

@@ -14,8 +14,10 @@ const userSlice = createSlice({
   },
 });
 
+//here reducer is a state, actions is functions
 const { reducer, actions } = userSlice;
 
 export const { setUser } = actions;
 
 export default reducer;
+//plug this- store.js
