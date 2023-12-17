@@ -2,7 +2,7 @@ import React from "react";
 import { UserLayout } from "../../components/layout/UserLayout";
 import { useSelector } from "react-redux/";
 const MyBook = () => {
-  const { user } = useSelector((state) => state.adminInfo);
+  const { user } = useSelector((state) => state.userInfo);
 
   return user?.role === "admin" ? (
     <UserLayout title="Books">Book</UserLayout>

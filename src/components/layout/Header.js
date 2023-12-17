@@ -9,7 +9,7 @@ import { CiLogout } from "react-icons/ci";
 import { logOutUserACtion } from "../../pages/user_signup_login/userAction.js";
 export const Header = () => {
   const { user } = useSelector((state) => {
-    return state.adminInfo;
+    return state.userInfo;
   });
   const dispatch = useDispatch();
 

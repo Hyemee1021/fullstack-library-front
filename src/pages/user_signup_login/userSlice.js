@@ -5,7 +5,7 @@ const initialState = {
 };
 
 const userSlice = createSlice({
-  name: "admin",
+  name: "user",
   initialState,
   reducers: {
     setUser: (state, action) => {

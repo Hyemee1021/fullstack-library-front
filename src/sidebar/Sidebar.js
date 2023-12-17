@@ -8,7 +8,7 @@ import { FaUserCog } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
 export const Sidebar = () => {
-  const { user } = useSelector((state) => state.adminInfo);
+  const { user } = useSelector((state) => state.userInfo);
   return (
     <div className="p-2 sidebar">
       <div className="top mt-5"> CL - Admin </div>

@@ -18,13 +18,12 @@ const LogIn = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { user } = useSelector((state) => {
-    return state.adminInfo;
-  });
-
+  const { user } = useSelector((state) => state.userInfo);
+  console.log(user);
   //send the page where I am from
   const fromLocation =
     location?.state?.from?.location?.pathname || "/dashboard";
+  console.log(fromLocation);
   //for user experience
   //I dont need to log in
   useEffect(() => {
@@ -73,10 +72,8 @@ const LogIn = () => {
     //calling axios-userRouter sends jwts
 
     const { status, message, jwts } = await loginUser({ email, password });
-
+    toast[status](message);
     if (status === "success") {
-      toast[status](message);
-
       const { accessJWT, refreshJWT } = jwts;
 
       sessionStorage.setItem("accessJWT", accessJWT);
@@ -85,6 +82,7 @@ const LogIn = () => {
       //fetsh user info- store in redux store , redirtect to dashboard
 
       //userAction
+
       dispatch(getUserAction());
       return;
     }

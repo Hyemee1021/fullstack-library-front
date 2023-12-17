@@ -15,7 +15,7 @@ const initialState = {
 };
 
 const AdminSignUp = () => {
-  const { user } = useSelector((state) => state.adminInfo);
+  const { user } = useSelector((state) => state.userInfo);
   const [form, setForm] = useState(initialState);
 
   const handleOnChange = (e) => {

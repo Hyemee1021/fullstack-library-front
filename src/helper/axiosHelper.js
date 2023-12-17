@@ -2,6 +2,8 @@ import axios from "axios";
 
 const rootEp = process.env.REACT_APP_ROOTAPI;
 const userEp = rootEp + "/users";
+const bookEp = rootEp + "/books";
+const burrowEp = rootEp + "/burrows";
 //nnow im sending form 3000 to 8000
 
 //getting token from sesstion storage
@@ -23,17 +25,14 @@ const axiosProcessor = async (obj) => {
     //make property of obj
     obj.headers = {
       //when ther is refreshtrure send refresh or accesstoken
-      authorization: refreshToken ? getRefreshJWT() : getAccessJWT(),
+      Authorization: refreshToken ? getRefreshJWT() : getAccessJWT(),
     };
   }
-  const token = obj.isPrivate ? getAccessJWT() : null;
-
-  console.log(token);
 
   try {
-    const response = await axios(obj);
+    const resp = await axios(obj);
 
-    return response.data;
+    return resp.data;
     // console.log(response);
     // console.log(response.data);
     //from userRouter
@@ -41,9 +40,11 @@ const axiosProcessor = async (obj) => {
 
     // I need to go to response.data
   } catch (error) {
+    console.log(error);
+
     const errorMsg = error?.response?.data?.message;
 
-    if (errorMsg.includes("jwt expired")) {
+    if (errorMsg?.includes("jwt expired")) {
       //get new access token
       const { accessJWT } = await getNewAccessJwt();
 
@@ -122,5 +123,50 @@ export const getNewAccessJwt = async () => {
     url: userEp + "/get-accessjwt",
     isPrivate: true,
     refreshToken: true,
+  });
+};
+
+//================book
+export const postBook = async (data) => {
+  return axiosProcessor({
+    method: "post",
+    url: bookEp,
+    data,
+    isPrivate: true,
+  });
+};
+export const getBooks = async (_id) => {
+  return axiosProcessor({
+    method: "get",
+    url: _id ? bookEp + "/" + _id : bookEp,
+    isPrivate: true,
+  });
+};
+
+export const updateBook = async (data) => {
+  return axiosProcessor({
+    method: "put",
+    url: bookEp,
+    data,
+    isPrivate: true,
+  });
+};
+export const deleteBook = async (_id) => {
+  return axiosProcessor({
+    method: "delete",
+    url: bookEp + "/" + _id,
+
+    isPrivate: true,
+  });
+};
+
+//================burrow
+
+export const postBurrow = async (data) => {
+  return axiosProcessor({
+    method: "post",
+    url: burrowEp,
+    data,
+    isPrivate: true,
   });
 };

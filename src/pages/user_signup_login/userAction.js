@@ -3,13 +3,15 @@ import {
   getUser,
   logOutUser,
 } from "../../helper/axiosHelper.js";
-import { setUser } from "../../pages/user_signup_login/userSlice.js";
+import { setUser } from "./userSlice.js";
 
 //this will fetch user info and store in redux store
 export const getUserAction = () => async (dispatch) => {
   //things I get from router
   const { status, message, user } = await getUser();
+  console.log(status);
 
+  console.log(user);
   if (status === "success") {
     //send userInfo save in store
 

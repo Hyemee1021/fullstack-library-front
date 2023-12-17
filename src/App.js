@@ -12,13 +12,28 @@ import Book from "./pages/book/Book";
 import Student from "./pages/student/Student";
 import BurrowHistory from "./pages/burrow-history/BurrowHistory";
 import MyProfile from "./pages/my-profile/MyProfile";
+import NewBook from "./pages/book/NewBook";
+import UpdateBook from "./pages/book/UpdateBook";
 import {
-  AdminPrivateRouter,
   PrivateRouter,
+  AdminPrivateRouter,
 } from "./components/private-router/PrivateRouter";
 import MyBook from "./pages/my-books/MyBook";
+import { useEffect } from "react";
+import { getAllBooksAction } from "./pages/book/bookAction";
+import { useDispatch } from "react-redux";
+import BookLanding from "./pages/book/BookLanding";
+import { autoLogin } from "./pages/user_signup_login/userAction";
 
 function App() {
+  const dispatch = useDispatch();
+
+  //show all thw book first on website
+  useEffect(() => {
+    dispatch(getAllBooksAction());
+    dispatch(autoLogin());
+  }, [dispatch]);
+
   return (
     <div className="">
       <Routes>
@@ -26,7 +41,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/book/:_id" element={<BookLanding />} />
 
+        {/* find out where url coming form  */}
         {/* private routes  */}
         <Route
           path="/admin-signup"
@@ -47,9 +64,25 @@ function App() {
         <Route
           path="/books"
           element={
-            <PrivateRouter>
+            <AdminPrivateRouter>
               <Book />
-            </PrivateRouter>
+            </AdminPrivateRouter>
+          }
+        />
+        <Route
+          path="/new-book"
+          element={
+            <AdminPrivateRouter>
+              <NewBook />
+            </AdminPrivateRouter>
+          }
+        />
+        <Route
+          path="/edit-book/:_id"
+          element={
+            <AdminPrivateRouter>
+              <UpdateBook />
+            </AdminPrivateRouter>
           }
         />
         <Route

@@ -1,3 +1,40 @@
 .main {
   min-height: 75vh;
 }
+a {
+  text-decoration: none !important;
+}
+.carousel {
+  max-height: 50vh;
+}
+.carousel img {
+  height: 60vh;
+  object-fit: cover;
+}
+
+/* .card {
+  max-width: 30rem;
+} */
+
+.avatar {
+  background-color: lightpink;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 2rem;
+  font-weight: bold;
+  color: bisque;
+}
+
+.review {
+  width: calc(100% - 5rem);
+}
+.button-group {
+  position: relative;
+  top: -1.5rem;
+}
